@@ -40,4 +40,23 @@ CREATE TABLE Arbitre (
     CONSTRAINT pk_arbitre PRIMARY KEY(idArbitre),
     CONSTRAINT ck_nomArbitre CHECK ( nomArbitre IS NOT NULL )
 );
+
+CREATE TABLE Combat (
+    idCombat NUMBER,
+    methode VARCHAR2,
+    roundFin NUMBER,
+    tempsFin VARCHAR2,
+    titreEnJeu NUMBER      DEFAULT 0 NOT NULL,
+    idEvenement NUMBER      NOT NULL,
+    idCategorie NUMBER     NOT NULL,
+    idArbitre NUMBER    NOT NULL,
+    CONSTRAINT pk_combat PRIMARY KEY(idCombat),
+    CONSTRAINT fk_combat_evenement FOREIGN KEY(idEvenement)
+                        REFERENCES Evenement(idEvenement),
+    CONSTRAINT fk_combat_categorie FOREIGN KEY(idCategorie)
+                        REFERENCES Categorie(idCategorie),
+    CONSTRAINT fk_combat_arbitre FOREIGN KEY(idArbitre)
+                        REFERENCES Arbitre(idArbitre),
+    CONSTRAINT ck_titreEnJeu CHECK ( titreEnJeu in ('oui','non'))
+);
     
